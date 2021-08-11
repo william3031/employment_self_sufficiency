@@ -12,11 +12,8 @@ map_server <- function(id, selected_year) {
   moduleServer(id, function(input, output, session) {
     
     # initial values ------------------
-    pal <- colorNumeric(c("red", "blue"), domain = initial_poly$ess)
+    pal <- colorNumeric(plasma(10), domain = c(0,1))
     
-    initial_poly <- inner_join(poly, df %>% filter(year == "2016"),
-                               by = c("lga_name" = "lga"))
-
     initial_label_text <- glue("<b>LGA:</b> {initial_poly$lga_name}</br>",
                                "<b>Year:</b> {initial_poly$year}</br>",
                                "<b>Local jobs:</b> {comma(initial_poly$local_jobs, accuracy = 1)}</br>",

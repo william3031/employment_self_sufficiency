@@ -7,13 +7,16 @@ library(leaflet)
 library(shinyWidgets)
 library(glue)
 library(scales)
-
+library(viridis)
 
 # load data ---------------------------------------------------------------
 
 df <- read_rds("data_out/ess_data.rds")
 poly <- st_read("data_out/lga.gpkg")
 
+initial_poly <- left_join(poly, df %>% filter(year == "2016"),
+                           by = c("lga_name" = "lga")) %>% 
+    filter(!is.na(year))
 
 # modules -----------------------------------------------------------------
 
